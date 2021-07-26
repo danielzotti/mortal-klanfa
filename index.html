@@ -462,6 +462,8 @@
 </div>
 
 <script>
+  var isFirstAccess = true;
+
   function onLoad() {
     const audio = document.querySelector('audio');
     const control = document.querySelector('#audio-control');
@@ -486,10 +488,11 @@
     player.style.display = 'block';
     picture.classList.add('active');
     if(window.innerWidth <= 1010) {
-      gif.scrollIntoView();//{ behavior: 'smooth', block: 'start' }
-      // setTimeout(function() {
-      //   gif.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // });
+      gif.scrollIntoView();
+    }
+    if(isFirstAccess) {
+      play();
+      isFirstAccess = false;
     }
   }
 
