@@ -1,0 +1,20 @@
+{
+  "name": "mortal-klanfa",
+  "version": "1.0.0",
+  "description": "A landing page to browse videos about the Clanfa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "website",
+    "clanfa",
+    "trieste",
+    "mortal",
+    "kombat",
+    "mortal",
+    "klanfa"
+  ],
+  "author": "Daniel Zotti",
+  "license": "ISC"
+}
