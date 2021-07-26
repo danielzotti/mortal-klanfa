@@ -80,7 +80,7 @@
       color: var(--color-primary);
       font-weight: 300;
       font-size: 100px;
-      margin-top:15px;
+      margin-top: 15px;
     }
 
 
@@ -92,7 +92,7 @@
     .pictures {
       display: grid;
       grid-template-columns: var(--picture-size) var(--picture-size) var(--picture-size) var(--picture-size);
-      grid-template-rows: var(--picture-size) var(--picture-size) var(--picture-size);
+      /*grid-template-rows: var(--picture-size) var(--picture-size) var(--picture-size);*/
     }
 
     .gifs {
@@ -181,12 +181,12 @@
       font-style: normal;
       text-transform: uppercase;
       position: fixed;
-      bottom:3px;
+      bottom: 3px;
       right: 3px;
       cursor: pointer;
-      border:none;
+      border: none;
       background-color: lightgray;
-      padding:5px 10px;
+      padding: 5px 10px;
     }
 
     @keyframes blinker {
@@ -206,49 +206,96 @@
         opacity: 0;
       }
     }
+
+    @media (max-width: 1010px) {
+      .title {
+        font-size: 50px;
+        margin-bottom: 30px;
+      }
+
+      .choose {
+        font-size: 60px;
+      }
+
+      .player-name {
+        font-size: 35px;
+        line-height: 35px;
+      }
+
+      .player-link a {
+        line-height: 35px;
+      }
+
+      .player-link img {
+        height: 35px;
+      }
+
+      .container {
+        width: 100%;
+      }
+
+      .game {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .pictures {
+        grid-template-columns: var(--picture-size) var(--picture-size) var(--picture-size) var(--picture-size);
+      }
+
+      .gifs {
+        margin-top: 50px;
+      }
+    }
+    @media(max-width:800px){
+      .pictures {
+        grid-template-columns: var(--picture-size) var(--picture-size) var(--picture-size);
+      }
+    }
+    @media(max-width:600px){
+      .pictures {
+        grid-template-columns: var(--picture-size) var(--picture-size);
+      }
+    }
   </style>
 </head>
 
-<body onclick="reset()">
-<!--    <bgsound src="sound/choose-your-fighter.mid" loop=infinite>-->
-<!--    <embed src="sound/choose-your-fighter.mid" autostart=true loop=true hidden=true>-->
+<body onclick="reset()" onload="onLoad()">
+
+<audio loop autoplay>
+  <source src="sound/choose-your-fighter.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
   <h1 class="title">Mortal Klanfa</h1>
   <div class="game">
     <div class="pictures">
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'bomba-americana')">
-        <!-- onmouseover="selectPlayer(this, event, 'bomba-americana')" -->
         <img src="images/characters-photo/bomba-americana.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'kamikaze')">
-        <!-- onmouseover="selectPlayer(this, event, 'kamikaze')" -->
         <img src="images/characters-photo/kamikaze.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'balena-bianca')">
-        <!-- onmouseover="selectPlayer(this, event, 'balena-bianca')" -->
         <img src="images/characters-photo/balena-bianca.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'clanfador')">
-        <!-- onmouseover="selectPlayer(this, event, 'clanfador')" -->
         <img src="images/characters-photo/clanfador.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'taconeti')">
-        <!-- onmouseover="selectPlayer(this, event, 'taconeti')" -->
         <img src="images/characters-photo/taconeti.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'taiaerba')">
-        <!-- onmouseover="selectPlayer(this, event, 'taiaerba')" -->
         <img src="images/characters-photo/taiaerba.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
            onclick="selectPlayer(this, event, 'mona')">
-        <!-- onmouseover="selectPlayer(this, event, 'mona')" -->
         <img src="images/characters-photo/mona.png">
       </div>
       <div href="http://www.youtube.com" target="_blank" class="picture"
@@ -371,7 +418,12 @@
   </div>
   <button id="audio-control" onclick="toggleAudio()">Stop music</button>
 </div>
+
 <script>
+  function onLoad() {
+    console.log('onload');
+  }
+
   function selectPlayer(element, event, id) {
     event.stopImmediatePropagation();
     reset();
@@ -406,30 +458,27 @@
 
   function play() {
     const audio = document.querySelector('audio');
+    const control = document.querySelector('#audio-control');
     audio.play();
+    control.innerHTML = 'Stop music';
   }
 
   function stop() {
     const audio = document.querySelector('audio');
+    const control = document.querySelector('#audio-control');
     audio.pause();
-    // audio.currentTime = 0;
+    control.innerHTML = 'Play music';
   }
 
   function toggleAudio() {
     const audio = document.querySelector('audio');
-    const control = document.querySelector('#audio-control');
     if(audio.paused) {
       play();
-      control.innerHTML = 'Stop music';
     } else {
       stop();
-      control.innerHTML = 'Play music';
     }
   }
 </script>
-<audio loop autoplay>
-  <source src="sound/choose-your-fighter.mp3" type="audio/mpeg">
-</audio>
 </body>
 
 </html>
