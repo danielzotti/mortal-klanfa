@@ -32,17 +32,14 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html {
       margin: 0;
       padding: 0;
-      position: absolute;
+      position: relative;
       height: 100%;
       width: 100%;
-      overflow: auto;
-    }
+      overflow: hidden;
 
-    html {
       font-family: "DPComic Regular", sans-serif;
       font-size: 16px;
       font-style: normal;
@@ -54,9 +51,17 @@
       text-shadow: 5px 5px 0 black;
       background-image: url("images/background.jpg");
       background-size: cover;
+      background-position: center;
     }
 
     body {
+      margin: 0;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+
       padding: 20px;
     }
 
@@ -187,6 +192,7 @@
       border: none;
       background-color: lightgray;
       padding: 5px 10px;
+      z-index: 10;
     }
 
     @keyframes blinker {
@@ -247,12 +253,14 @@
         margin-top: 50px;
       }
     }
-    @media(max-width:800px){
+
+    @media (max-width: 800px) {
       .pictures {
         grid-template-columns: var(--picture-size) var(--picture-size) var(--picture-size);
       }
     }
-    @media(max-width:600px){
+
+    @media (max-width: 600px) {
       .pictures {
         grid-template-columns: var(--picture-size) var(--picture-size);
       }
@@ -261,11 +269,6 @@
 </head>
 
 <body onclick="reset()" onload="onLoad()">
-
-<audio loop autoplay>
-  <source src="sound/choose-your-fighter.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
   <h1 class="title">Mortal Klanfa</h1>
   <div class="game">
@@ -416,12 +419,22 @@
                 </span>
     </div>
   </div>
-  <button id="audio-control" onclick="toggleAudio()">Stop music</button>
+  <button id="audio-control" onclick="toggleAudio(event)">Play music</button>
+  <audio loop>
+    <source src="sound/choose-your-fighter.mp3" type="audio/mpeg">
+  </audio>
 </div>
 
 <script>
   function onLoad() {
-    console.log('onload');
+    const audio = document.querySelector('audio');
+    const control = document.querySelector('#audio-control');
+    audio.play();
+    if(audio.paused) {
+      control.innerHTML = 'Play music';
+    } else {
+      control.innerHTML = 'Stop music';
+    }
   }
 
   function selectPlayer(element, event, id) {
@@ -436,6 +449,11 @@
     gif.style.display = 'inline-block';
     player.style.display = 'block';
     picture.classList.add('active');
+    if(window.outerWidth <= 1010){
+      gif.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }
+
+    // location.hash = "#gif_" + id;
   }
 
   function reset() {
@@ -470,7 +488,8 @@
     control.innerHTML = 'Play music';
   }
 
-  function toggleAudio() {
+  function toggleAudio(event) {
+    event?.stopImmediatePropagation();
     const audio = document.querySelector('audio');
     if(audio.paused) {
       play();
