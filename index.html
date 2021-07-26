@@ -248,19 +248,47 @@
       .pictures {
         grid-template-columns: var(--picture-size) var(--picture-size) var(--picture-size) var(--picture-size);
       }
-
       .gifs {
         margin-top: 50px;
       }
     }
 
     @media (max-width: 800px) {
+      .title {
+        font-size: 60px;
+      }
+
+      .choose {
+        font-size: 70px;
+      }
+      .player-name {
+        font-size: 40px;
+        line-height: 40px;
+      }
       .pictures {
         grid-template-columns: var(--picture-size) var(--picture-size) var(--picture-size);
+      }
+      .gifs {
+        height: calc(2 * var(--picture-size));
+      }
+      .gif {
+        height: calc(2 * var(--picture-size));
       }
     }
 
     @media (max-width: 600px) {
+      .title {
+        font-size: 50px;
+      }
+
+      .choose {
+        font-size: 60px;
+      }
+
+      .player-name {
+        font-size: 35px;
+        line-height: 35px;
+      }
       .pictures {
         grid-template-columns: var(--picture-size) var(--picture-size);
       }
